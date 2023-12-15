@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <filesystem>
+#include <algorithm>
 
 #include "BinaryVectorReader.h"
 #include "BinaryVectorWriter.h"
