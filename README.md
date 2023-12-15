@@ -29,7 +29,7 @@ To create a new file, create a new SarcFile::Entry object, set the name and byte
 ```cpp
 SarcFile SARC("DgnObj_Small_CandlePoleC_04.pack");
 SarcFile::Entry File;
-File.Name = "Path/of/file/Test.byml";
+File.Name = "Path/to/file/Test.byml";
 File.Bytes = Bytes;
 SARC.GetEntries().push_back(SARC);
 ```
