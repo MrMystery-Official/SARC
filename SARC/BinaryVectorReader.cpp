@@ -1,6 +1,6 @@
 #include "BinaryVectorReader.h"
 
-BinaryVectorReader::BinaryVectorReader(std::vector<byte>& Bytes) : m_Bytes(Bytes) {}
+BinaryVectorReader::BinaryVectorReader(std::vector<unsigned char>& Bytes) : m_Bytes(Bytes) {}
 
 void BinaryVectorReader::Seek(int Offset, BinaryVectorReader::Position Position)
 {

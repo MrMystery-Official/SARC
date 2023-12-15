@@ -12,12 +12,10 @@
 class SarcFile
 {
 public:
-	using byte = unsigned char;
-
 	struct Entry
 	{
 		std::string Name;
-		std::vector<byte> Bytes;
+		std::vector<unsigned char> Bytes;
 
 		void WriteToFile(std::string Path);
 	};
@@ -25,11 +23,11 @@ public:
 	std::vector<SarcFile::Entry>& GetEntries();
 	SarcFile::Entry& GetEntry(std::string Name);
 
-	std::vector<byte> ToBinary();
+	std::vector<unsigned char> ToBinary();
 	void WriteToFile(std::string Path);
 
 	SarcFile(std::string Path);
-	SarcFile(std::vector<byte> Bytes);
+	SarcFile(std::vector<unsigned char> Bytes);
 private:
 	struct Node
 	{
@@ -50,5 +48,5 @@ private:
 	int GCD(int a, int b);
 	int LCM(int a, int b);
 	int AlignUp(int Value, int Size);
-	int GetBinaryFileAlignment(std::vector<SarcFile::byte> Data);
+	int GetBinaryFileAlignment(std::vector<unsigned char> Data);
 };

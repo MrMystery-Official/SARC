@@ -3,8 +3,6 @@
 class BinaryVectorReader
 {
 public:
-	using byte = unsigned char;
-
 	enum class Position : uint8_t
 	{
 		Begin = 0,
@@ -12,7 +10,7 @@ public:
 		End = 2
 	};
 
-	BinaryVectorReader(std::vector<byte>& Bytes);
+	BinaryVectorReader(std::vector<unsigned char>& Bytes);
 
 	void Seek(int Offset, BinaryVectorReader::Position Position);
 	int GetPosition();
@@ -29,6 +27,6 @@ public:
 	float ReadFloat();
 	double ReadDouble();
 private:
-	std::vector<byte>& m_Bytes;
+	std::vector<unsigned char>& m_Bytes;
 	int m_Offset = -1;
 };

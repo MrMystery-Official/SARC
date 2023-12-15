@@ -25,7 +25,7 @@ SarcFile::Entry& SarcFile::GetEntry(std::string Name)
     return this->GetEntries()[0];
 }
 
-SarcFile::SarcFile(std::vector<byte> Bytes)
+SarcFile::SarcFile(std::vector<unsigned char> Bytes)
 {
     BinaryVectorReader Reader(Bytes);
     char Magic[4]; //Magic, should be SARC
@@ -128,7 +128,7 @@ int SarcFile::LCM(int a, int b)
     return a / GCD(a, b) * b;
 }
 
-int SarcFile::GetBinaryFileAlignment(std::vector<SarcFile::byte> Data)
+int SarcFile::GetBinaryFileAlignment(std::vector<unsigned char> Data)
 {
     if (Data.size() <= 0x20)
     {
@@ -149,7 +149,7 @@ int SarcFile::AlignUp(int Value, int Size)
     return Value + (Size - Value % Size) % Size;
 }
 
-std::vector<SarcFile::byte> SarcFile::ToBinary()
+std::vector<unsigned char> SarcFile::ToBinary()
 {
     BinaryVectorWriter Writer;
 
@@ -187,7 +187,7 @@ std::vector<SarcFile::byte> SarcFile::ToBinary()
     for (int i = 0; i < Count; i++)
     {
         std::string FileName = Keys[i].Node->Name;
-        std::vector<byte> Buffer(Keys[i].Node->Bytes.begin(), Keys[i].Node->Bytes.end());
+        std::vector<unsigned char> Buffer(Keys[i].Node->Bytes.begin(), Keys[i].Node->Bytes.end());
         int Alignment = LCM(4, GetBinaryFileAlignment(Buffer));
         Alignments[i] = Alignment;
 
@@ -229,7 +229,7 @@ std::vector<SarcFile::byte> SarcFile::ToBinary()
     for (int i = 0; i < Count; i++)
     {
         Writer.Seek((Alignments[i] - Writer.GetPosition() % Alignments[i]) % Alignments[i], BinaryVectorWriter::Position::Current);
-        for (SarcFile::byte Byte : this->m_Entries[i].Bytes)
+        for (unsigned char Byte : this->m_Entries[i].Bytes)
         {
             Writer.WriteByte(Byte);
         }
@@ -255,7 +255,7 @@ std::vector<SarcFile::byte> SarcFile::ToBinary()
 void SarcFile::WriteToFile(std::string Path)
 {
     std::ofstream File(Path, std::ios::binary);
-    std::vector<SarcFile::byte> Binary = this->ToBinary();
+    std::vector<unsigned char> Binary = this->ToBinary();
     std::copy(Binary.begin(), Binary.end(),
         std::ostream_iterator<unsigned char>(File));
     File.close();
@@ -270,7 +270,7 @@ SarcFile::SarcFile(std::string Path)
         File.seekg(0, std::ios_base::end);
         std::streampos FileSize = File.tellg();
 
-        std::vector<byte> Bytes(FileSize);
+        std::vector<unsigned char> Bytes(FileSize);
 
         File.seekg(0, std::ios_base::beg);
         File.read(reinterpret_cast<char*>(Bytes.data()), FileSize);
