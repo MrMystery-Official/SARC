@@ -106,8 +106,6 @@ SarcFile::SarcFile(std::vector<unsigned char> Bytes)
             Entry.Name = Name;
             this->m_Entries[i] = Entry;
         }
-
-        std::cout << this->m_Entries[i].Name << std::endl;
     }
 }
 
